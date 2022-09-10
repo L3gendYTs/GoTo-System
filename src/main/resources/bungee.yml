@@ -1,0 +1,4 @@
+name: GoToSystem
+version: '${project.version}'
+main: me.l3gend.gotosystem.GoToSystem
+author: L3gend
