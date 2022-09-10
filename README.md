@@ -14,3 +14,5 @@ For problems enter the discord and open a ticket!
 Discord: https://discord.gg/yVJBA5QTbe
 
 WARNING: This command only works on BungeeCord or one of its forks!
+
+It is strictly forbidden to peddle the plugin as your own.
