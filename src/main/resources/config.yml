@@ -12,3 +12,5 @@
 
 no-perms: "&cYou don't have the permission to perform this command!"
 usage: "&cUsage: /goto <server>"
+no-found: "&cThis server does not exist!"
+reload: "&9&lGoToSystem &7// &aPlugin reloaded successfully!"

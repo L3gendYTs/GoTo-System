@@ -1,12 +1,9 @@
-package me.l3gend.gotosystem;
+package me.l3gend.gotosystem.bungee.managers;
 
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-
-import static me.l3gend.gotosystem.GoToSystem.getInstance;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +13,7 @@ import java.nio.file.Files;
 
 public class ConfigurationManager {
 
-    static Configuration config;
+    public static Configuration config;
 
     public static void createMainConfig(Plugin plugin) {
         if (!plugin.getDataFolder().exists()) {

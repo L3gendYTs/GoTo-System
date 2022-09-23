@@ -1,21 +1,25 @@
-package me.l3gend.gotosystem;
+package me.l3gend.gotosystem.bungee;
 
+import me.l3gend.gotosystem.bungee.commands.GoToCMD;
+import me.l3gend.gotosystem.bungee.commands.ReloadCMD;
+import me.l3gend.gotosystem.bungee.events.UpdateFound;
+import me.l3gend.gotosystem.bungee.utils.UpdateChecker;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
 
-import static me.l3gend.gotosystem.ConfigurationManager.createMainConfig;
-import static me.l3gend.gotosystem.ConfigurationManager.registerMainConfig;
+import static me.l3gend.gotosystem.bungee.managers.ConfigurationManager.createMainConfig;
+import static me.l3gend.gotosystem.bungee.managers.ConfigurationManager.registerMainConfig;
 
-public final class GoToSystem extends Plugin {
+public final class GoToBungee extends Plugin {
 
-    private static GoToSystem Instance;
+    private static GoToBungee Instance;
 
-    public static void setInstance(GoToSystem instance) {
+    public static void setInstance(GoToBungee instance) {
         Instance = instance;
     }
 
-    public static GoToSystem getInstance() {
+    public static GoToBungee getInstance() {
         return Instance;
     }
 
@@ -40,6 +44,17 @@ public final class GoToSystem extends Plugin {
                 "     /____/                          \n");
         PluginManager pm = ProxyServer.getInstance().getPluginManager();
         pm.registerCommand(this, new GoToCMD());
+        pm.registerCommand(this, new ReloadCMD());
+
+        pm.registerListener(this, new UpdateFound());
+
+        new UpdateChecker(this, 105194).getVersion(version -> {
+            if (this.getDescription().getVersion().equals(version)) {
+                getLogger().info("There is not a new update available.");
+            } else {
+                getLogger().info("There is a new update available.");
+            }
+        });
 
     }
 
@@ -57,5 +72,11 @@ public final class GoToSystem extends Plugin {
                 " ___/ / /_/ (__  ) /_/  __/ / / / / /\n" +
                 "/____/\\__, /____/\\__/\\___/_/ /_/ /_/ \n" +
                 "     /____/                          \n");
+    }
+
+
+    public static void reloadConfiguration() {
+        getInstance().getProxy().getPluginManager().getPlugin("GoToSystem").onDisable();
+        getInstance().getProxy().getPluginManager().getPlugin("GoToSystem").onEnable();
     }
 }

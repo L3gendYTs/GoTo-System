@@ -1,4 +1,4 @@
-package me.l3gend.gotosystem;
+package me.l3gend.gotosystem.bungee.commands;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -6,21 +6,21 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 
-import javax.xml.soap.SAAJResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.l3gend.gotosystem.GoToSystem.getInstance;
+import static me.l3gend.gotosystem.bungee.GoToBungee.getInstance;
 
-import static me.l3gend.gotosystem.ConfigurationManager.config;
+import static me.l3gend.gotosystem.bungee.managers.ConfigurationManager.config;
+import static me.l3gend.gotosystem.bungee.utils.ColorUtils.color;
+
 public class GoToCMD extends Command implements TabExecutor {
 
     public GoToCMD() {
-        super("goto");
+        super("goto", "", "connect");
     }
 
     @Override
@@ -35,17 +35,22 @@ public class GoToCMD extends Command implements TabExecutor {
 
         if (args.length == 0) {
             if (p.hasPermission("goto.command")) {
-                p.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', config.getString("usage"))));
+                p.sendMessage(new TextComponent(color(config.getString("usage"))));
             } else {
-                p.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', config.getString("no-perms"))));
+                p.sendMessage(new TextComponent(color( config.getString("no-perms"))));
             }
         } else if (args.length == 1) {
 
             if (p.hasPermission("goto.command")) {
                 ServerInfo server = ProxyServer.getInstance().getServerInfo(args[0]);
-                p.connect(server);
+
+                if(server != null) {
+                    p.connect(server);
+                } else {
+                    p.sendMessage(color(config.getString("no-found")));
+                }
             } else {
-                p.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', config.getString("no-perms"))));
+                p.sendMessage(new TextComponent(color(config.getString("no-perms"))));
             }
 
         }
