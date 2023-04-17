@@ -4,11 +4,14 @@ This is a simple plugin created for a network, which I then decided to release t
 
 
 ## Command:
-- /goto <server>
+- /goto <server> o /connect <server>
+- /gotoreload
 
 ## Permissions:
 - goto.command | To use the command
 - goto.command.tabcomplete | To have the tabcomplete in the command.
+- goto.reload | To reload the plugin!
+- goto.update | To receive plugin update notifications!
 
 For problems enter the discord and open a ticket!
 Discord: https://discord.gg/HGbytYzx27
