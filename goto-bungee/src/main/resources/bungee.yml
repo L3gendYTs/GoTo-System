@@ -1,0 +1,4 @@
+name: GoToSystem
+version: 1.2
+main: me.l3gend.gotosystem.bungee.GoToBungee
+author: L3gend

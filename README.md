@@ -16,6 +16,4 @@ This is a simple plugin created for a network, which I then decided to release t
 For problems enter the discord and open a ticket!
 Discord: https://discord.gg/HGbytYzx27
 
-WARNING: This command only works on BungeeCord or one of its forks!
-
 It is strictly forbidden to peddle the plugin as your own.

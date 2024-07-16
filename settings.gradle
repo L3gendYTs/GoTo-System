@@ -1,0 +1,4 @@
+rootProject.name = 'GoTo-System'
+
+include "goto-bungee"
+include "goto-velocity"

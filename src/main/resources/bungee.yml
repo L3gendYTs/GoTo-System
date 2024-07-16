@@ -1,4 +1,0 @@
-name: GoToSystem
-version: '${project.version}'
-main: me.l3gend.gotosystem.bungee.GoToBungee
-author: L3gend

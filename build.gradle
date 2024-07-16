@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id("io.github.goooler.shadow") version "8.1.7"
+}
+
+apply plugin: "java"
+
+group = 'me.l3gend'
+version = '1.2'
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {url = 'https://jitpack.io'}
+        maven {
+            url 'https://repo.codemc.org/repository/maven-public/'
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        compileOnly('org.projectlombok:lombok:1.18.32')
+        annotationProcessor('org.projectlombok:lombok:1.18.32')
+        implementation 'com.google.code.gson:gson:2.10.1'
+        implementation 'com.google.guava:guava:33.1.0-jre'
+    }
+}
+
+dependencies {
+    implementation project(":goto-bungee")
+    implementation project(":goto-velocity")
+}
+
+shadowJar {
+    archiveBaseName.set('GoTo-System')
+    archiveVersion.set(version)
+    mergeServiceFiles()
+}
+
+tasks.named('build') {
+    dependsOn(shadowJar)
+}

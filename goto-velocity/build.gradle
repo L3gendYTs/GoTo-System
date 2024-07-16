@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id("io.github.goooler.shadow") version "8.1.7"
+}
+
+apply plugin: 'java'
+
+group = 'me.l3gend'
+version = '1.2'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+    maven {
+        url 'https://repo.codemc.org/repository/maven-public/'
+    }
+    maven {url = 'https://jitpack.io'}
+}
+
+dependencies {
+    compileOnly 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+
+    implementation 'it.mycraft:powerlib-velocity:1.2.5'
+
+    implementation 'com.github.Revxrsal.Lamp:velocity:3.2.1'
+    implementation 'com.github.Revxrsal.Lamp:common:3.2.1'
+}
+
+configurations {
+    all*.exclude group: 'org.jetbrains.kotlin'
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
+tasks {
+    compileJava {
+        dependsOn clean
+        options.encoding = 'UTF-8'
+    }
+    build {
+        dependsOn shadowJar
+    }
+}
+
+shadowJar{
+    archiveFileName = 'goto-velocity.jar'
+    relocate('com.github.Revxrsal.Lamp', 'me.l3gend.velocity.lamp')
+}
+
