@@ -1,3 +1,5 @@
+[!Immagine](https://i.imgur.com/pmrFShw.png)
+
 # GoTo-System
 
 This is a simple plugin created for a network, which I then decided to release to everyone. What this plugin does is add the /goto command that allows you to go from one server to another without having to do /server.
