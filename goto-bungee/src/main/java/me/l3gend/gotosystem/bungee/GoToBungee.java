@@ -20,6 +20,8 @@ public final class GoToBungee extends Plugin {
     private ConfigManager configManager;
     private Configuration config;
 
+    private UpdateChecker updateChecker;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -43,14 +45,8 @@ public final class GoToBungee extends Plugin {
 
         ProxyServer.getInstance().getPluginManager().registerListener(this, new UpdateFound());
 
-        new UpdateChecker(this, 105194).getVersion(version -> {
-            if (this.getDescription().getVersion().equals(version)) {
-                getLogger().info("There is not a new update available.");
-            } else {
-                getLogger().info("There is a new update available.");
-            }
-        });
-
+        updateChecker = new UpdateChecker(this);
+        updateChecker.checkForUpdatesAsync(null);
     }
 
     @Override

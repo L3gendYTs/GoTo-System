@@ -1,7 +1,7 @@
 package me.l3gend.gotosystem.bungee.commands.handler.exception;
 
 import me.l3gend.gotosystem.bungee.GoToBungee;
-import me.l3gend.gotosystem.bungee.utils.ColorUtils;
+import me.l3gend.gotosystem.bungee.utils.ColorAPI;
 import org.jetbrains.annotations.NotNull;
 import revxrsal.commands.command.CommandActor;
 import revxrsal.commands.exception.CommandExceptionAdapter;
@@ -12,11 +12,11 @@ public class BungeeCommandException extends CommandExceptionAdapter {
 
     @Override
     public void noPermission(@NotNull CommandActor actor, @NotNull NoPermissionException exception) {
-        actor.reply(ColorUtils.color(GoToBungee.get().getConfig().getString("no-perms")));
+        actor.reply(ColorAPI.translate(GoToBungee.get().getConfig().getString("no-perms")));
     }
 
     @Override
     public void missingArgument(@NotNull CommandActor actor, @NotNull MissingArgumentException exception) {
-        actor.reply(ColorUtils.color(exception.getCommand().getUsage()));
+        actor.reply(ColorAPI.translate(exception.getCommand().getUsage()));
     }
 }

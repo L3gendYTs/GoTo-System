@@ -11,16 +11,14 @@ import revxrsal.commands.bungee.BungeeCommandHandler;
 @Getter
 public class BungeeCommandManager {
 
-    private BungeeCommandHandler handler;
-
     public BungeeCommandManager() {
-        handler = BungeeCommandHandler.create(GoToBungee.get());
+        BungeeCommandHandler handler = BungeeCommandHandler.create(GoToBungee.get());
         handler.registerDependency(GoToBungee.class, GoToBungee.get());
         handler.setExceptionHandler(new BungeeCommandException());
 
         handler.getAutoCompleter().registerSuggestion("serverName", ((args, sender, command) -> GoToBungee.get().getProxy().getServers().values().stream().map(ServerInfo::getName).toList()));
 
-
-        handler.register(new GoToCommand(), new ReloadCommand());
+        handler.register(new ReloadCommand());
+        handler.register(new GoToCommand());
     }
 }

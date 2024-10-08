@@ -1,7 +1,7 @@
 package me.l3gend.gotosystem.bungee.commands;
 
 import me.l3gend.gotosystem.bungee.GoToBungee;
-import me.l3gend.gotosystem.bungee.utils.ColorUtils;
+import me.l3gend.gotosystem.bungee.utils.ColorAPI;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -22,7 +22,7 @@ public class GoToCommand {
         ServerInfo serverInfo = ProxyServer.getInstance().getServerInfo(server);
 
         if (serverInfo == null) {
-            player.sendMessage(new TextComponent(ColorUtils.color(GoToBungee.get().getConfig().getString("no-found"))));
+            player.sendMessage(new TextComponent(ColorAPI.translate(GoToBungee.get().getConfig().getString("no-found"))));
             return;
         }
 

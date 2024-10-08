@@ -23,11 +23,15 @@ import java.util.logging.Logger;
 @Plugin(
         id = "goto-velocity",
         name = "goto-velocity",
-        version = "1.2"
+        version = "1.3"
 )
 @Getter
 @Setter
 public class GoToVelocity {
+
+    /*
+    * Goto System Created by L3gend
+     */
 
     private static GoToVelocity instance;
 
@@ -39,6 +43,8 @@ public class GoToVelocity {
 
     private ConfigManager configManager;
     private Configuration config;
+
+    private UpdateChecker updateChecker;
 
 
     @Inject
@@ -73,13 +79,8 @@ public class GoToVelocity {
 
         proxy.getEventManager().register(this, new UpdateFound());
 
-        new UpdateChecker(this, 105194).getVersion(version -> {
-            if (pluginDescription.getVersion().equals(version)) {
-                getLogger().info("There is not a new update available.");
-            } else {
-                getLogger().info("There is a new update available.");
-            }
-        });
+        updateChecker = new UpdateChecker(this);
+        updateChecker.checkForUpdatesAsync(null);
     }
 
     @Subscribe
