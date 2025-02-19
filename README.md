@@ -39,9 +39,6 @@ update-check:
   message: "&9&lGoToSystem &7// A new update avaiable. {OLD_VERSION} -> {NEW_VERSION}"
 ```
 
-For problems enter the discord and open a ticket!
-Discord: https://discord.gg/vmwaF8XY8D
-
 It is strictly forbidden to peddle the plugin as your own.
 
 
