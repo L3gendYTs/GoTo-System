@@ -2,18 +2,28 @@ package me.l3gend.gotosystem.bungee.commands;
 
 import me.l3gend.gotosystem.bungee.GoToBungee;
 import me.l3gend.gotosystem.bungee.utils.ColorAPI;
-import revxrsal.commands.annotation.Command;
-import revxrsal.commands.annotation.Usage;
-import revxrsal.commands.bungee.BungeeCommandActor;
-import revxrsal.commands.bungee.annotation.CommandPermission;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.plugin.Command;
 
-public class ReloadCommand {
+public class ReloadCommand extends Command {
 
-    @Command("gotoreload")
-    @CommandPermission("goto.reload")
-    @Usage("&cUsage: /gotoreload")
-    public void onReload(BungeeCommandActor actor) {
+    public ReloadCommand() {
+        super("gotoreload", "goto.reload");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+        if (args.length > 0) {
+            sender.sendMessage(ColorAPI.translateToTextComponent("&cUsage: /gotoreload"));
+            return;
+        }
+
+        if (!sender.hasPermission("goto.reload")) {
+            sender.sendMessage(ColorAPI.translateToTextComponent(GoToBungee.get().getConfig().getString("no-perms")));
+            return;
+        }
+
         GoToBungee.get().getConfigManager().reload("config.yml");
-        actor.reply(ColorAPI.translate(GoToBungee.get().getConfig().getString("reload")));
+        sender.sendMessage(ColorAPI.translateToTextComponent(GoToBungee.get().getConfig().getString("reload")));
     }
 }

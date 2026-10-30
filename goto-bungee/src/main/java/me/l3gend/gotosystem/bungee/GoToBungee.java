@@ -4,15 +4,14 @@ import it.mycraft.powerlib.bungee.config.BungeeConfigManager;
 import it.mycraft.powerlib.common.configuration.ConfigManager;
 import it.mycraft.powerlib.common.configuration.Configuration;
 import lombok.Getter;
-import lombok.Setter;
-import me.l3gend.gotosystem.bungee.commands.handler.BungeeCommandManager;
+import me.l3gend.gotosystem.bungee.commands.GoToCommand;
+import me.l3gend.gotosystem.bungee.commands.ReloadCommand;
 import me.l3gend.gotosystem.bungee.listener.UpdateFound;
 import me.l3gend.gotosystem.bungee.utils.UpdateChecker;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 @Getter
-@Setter
 public final class GoToBungee extends Plugin {
 
     private static GoToBungee instance;
@@ -21,6 +20,7 @@ public final class GoToBungee extends Plugin {
     private Configuration config;
 
     private UpdateChecker updateChecker;
+    private UpdateFound updateFoundListener;
 
     @Override
     public void onEnable() {
@@ -29,29 +29,30 @@ public final class GoToBungee extends Plugin {
         configManager = new BungeeConfigManager(this);
         config = configManager.create("config.yml");
 
-        getProxy().getLogger().info("\n" +
-                "           ______      __            \n" +
-                "          / ____/___  / /_____       \n" +
-                "         / / __/ __ \\/ __/ __ \\      \n" +
-                "        / /_/ / /_/ / /_/ /_/ /      \n" +
-                "   _____\\____/\\____/\\__/\\____/       \n" +
-                "  / ___/__  _______/ /____  ____ ___ \n" +
-                "  \\__ \\/ / / / ___/ __/ _ \\/ __ `__ \\\n" +
-                " ___/ / /_/ (__  ) /_/  __/ / / / / /\n" +
-                "/____/\\__, /____/\\__/\\___/_/ /_/ /_/ \n" +
-                "     /____/                          \n");
+        logBanner("ENABLED");
 
-        new BungeeCommandManager();
-
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new UpdateFound());
+        loadCommands();
 
         updateChecker = new UpdateChecker(this);
+        updateFoundListener = new UpdateFound(updateChecker);
+        ProxyServer.getInstance().getPluginManager().registerListener(this, updateFoundListener);
+
         updateChecker.checkForUpdatesAsync(null);
     }
 
     @Override
     public void onDisable() {
-        getProxy().getLogger().info("\n" +
+        if (updateChecker != null) {
+            updateChecker.shutdown();
+        }
+
+        instance = null;
+
+        logBanner("DISABLED");
+    }
+
+    private void logBanner(String phase) {
+        getProxy().getLogger().info("[GoToSystem] " + phase + "\n" +
                 "           ______      __            \n" +
                 "          / ____/___  / /_____       \n" +
                 "         / / __/ __ \\/ __/ __ \\      \n" +
@@ -62,6 +63,11 @@ public final class GoToBungee extends Plugin {
                 " ___/ / /_/ (__  ) /_/  __/ / / / / /\n" +
                 "/____/\\__, /____/\\__/\\___/_/ /_/ /_/ \n" +
                 "     /____/                          \n");
+    }
+
+    private void loadCommands() {
+        getProxy().getPluginManager().registerCommand(this, new ReloadCommand());
+        getProxy().getPluginManager().registerCommand(this, new GoToCommand());
     }
 
 

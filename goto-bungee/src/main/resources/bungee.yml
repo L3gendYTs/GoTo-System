@@ -1,4 +1,4 @@
 name: GoToSystem
-version: 1.3
+version: ${project.version}
 main: me.l3gend.gotosystem.bungee.GoToBungee
 author: L3gend
