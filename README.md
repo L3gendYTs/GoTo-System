@@ -6,13 +6,15 @@ This is a simple plugin created for a network, which I then decided to release t
 
 
 ## Command:
-- /goto <server> o /connect <server>
+- /goto \<server> o /connect \<server>
 - /gotoreload
 
 ## Permissions:
 - goto.command | To use the command
 - goto.reload | To reload the plugin!
 - goto.update | To receive plugin update notifications!
+- goto.server.\<servername> | To use /goto <servername> or goto.all for all servers
+ 
 
 
 ## Config example/backup
@@ -27,18 +29,22 @@ This is a simple plugin created for a network, which I then decided to release t
 # ___/ / /_/ (__  ) /_/  __/ / / / / /
 #/____/\__, /____/\__/\___/_/ /_/ /_/
 #     /____/
-# GoTo System | Version 1.3
+# GoTo System | Version 2.0
 
 no-perms: "&cYou don't have the permission to perform this command!"
+no-console: "&cThis command can only be executed by a player!"
 usage: "&cUsage: /goto <server>"
 no-found: "&cThis server does not exist!"
 reload: "&9&lGoToSystem &7// &aPlugin reloaded successfully!"
 
+# When true, players without `goto.all` must have `goto.server.<server>`
+# to connect to a specific server.
+per-server-permission: true
+
 update-check:
   enabled: true
-  message: "&9&lGoToSystem &7// A new update avaiable. {OLD_VERSION} -> {NEW_VERSION}"
+  message: "&9&lGoToSystem &7// A new update available. {OLD_VERSION} -> {NEW_VERSION}"
 ```
 
-It is strictly forbidden to peddle the plugin as your own.
-
+You are strictly prohibited from claiming this plugin or its code as your own creation.
 
